@@ -1,0 +1,45 @@
+///scr_draw_ants_line(x1,y1,x2,y2,antlength,spacing,width,speed,color)
+ 
+var pdist=point_distance(argument0,argument1,argument2,argument3);
+var pdir=point_direction(argument0,argument1,argument2,argument3);
+var antlength=argument4;
+var spacing=argument5;
+var color=argument8;
+var lenspa=(antlength+spacing);
+var mcheck=(lenspa-spacing)*.5
+var acheck=(lenspa+spacing)*.5
+var timelength=(current_time * argument7) mod lenspa;
+var tlx=lengthdir_x(timelength,pdir);
+var tly=lengthdir_y(timelength,pdir);
+var lespx=lengthdir_x(lenspa,pdir);
+var lespy=lengthdir_y(lenspa,pdir);
+var lex=lengthdir_x(antlength,pdir);
+var ley=lengthdir_y(antlength,pdir);
+ 
+var i;
+for (i=0;i<(pdist/(lenspa)-1);i++){
+  if (timelengthacheck){
+    draw_line_width_colour(
+      argument0+lespx*i,
+      argument1+lespy*i,
+      argument0+lespx*i+tlx+lex*.5-lespx,
+      argument1+lespy*i+tly+ley*.5-lespy,
+      argument6,color,color
+    );
+    draw_line_width_colour(
+      argument0+lespx*i+tlx-lex*.5,
+      argument1+lespy*i+tly-ley*.5,
+      argument0+lespx*i+lespx,
+      argument1+lespy*i+lespy,
+      argument6,color,color
+    );
+  } else {
+    draw_line_width_colour(
+      argument0+lespx*i+tlx-lex*.5,
+      argument1+lespy*i+tly-ley*.5,
+      argument0+lespx*i+lex+tlx-lex*.5,
+      argument1+lespy*i+ley+tly-ley*.5,
+      argument6,color,color
+    );
+  }
+}
