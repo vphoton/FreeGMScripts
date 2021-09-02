@@ -1,0 +1,10 @@
+///scr_draw_box(topsprite,sideSprite)
+//script requires scr_xplane, scr_yplane, scr_zplane
+var height = sprite_get_height(argument1)
+var width = sprite_get_width(argument0)
+ 
+scr_xplane(argument1,0,width/2,-width/2,height,"l")
+scr_xplane(argument1,0,-width/2,-width/2,height,"r")
+scr_yplane(argument1,0,-width/2,-width/2,height,"u")
+scr_yplane(argument1,0,-width/2,width/2,height,"d")
+scr_zplane(argument0,0,-width/2,-width/2,height)
