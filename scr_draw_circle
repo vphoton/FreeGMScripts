@@ -1,0 +1,32 @@
+///scr_draw_circle(x,y,radius,resolution,rotation,colour,filled)
+var i=0;
+draw_primitive_begin(pr_trianglefan);
+if argument[6]{
+  draw_vertex_colour(argument[0],argument[1],argument[5],1);
+}
+for(i=0;i<argument[3];i++)
+{
+  if argument[6]{
+    draw_vertex_colour(
+      argument[0]+lengthdir_x(argument[2],360/argument[3]*i+argument[4]),
+      argument[1]+lengthdir_y(argument[2],360/argument[3]*i+argument[4]),
+      argument[5],1
+    );
+  } else {
+    draw_line_colour(
+      argument[0]-1+lengthdir_x(argument[2],360/argument[3]*(i+1)+argument[4]),
+      argument[1]-1+lengthdir_y(argument[2],360/argument[3]*(i+1)+argument[4]),
+      argument[0]-1+lengthdir_x(argument[2],360/argument[3]*i+argument[4]),
+      argument[1]-1+lengthdir_y(argument[2],360/argument[3]*i+argument[4]),
+      argument[5],argument[5]
+    );
+  }
+}
+if argument[6]{
+  draw_vertex_colour(
+    argument[0]+lengthdir_x(argument[2],argument[4]),
+    argument[1]+lengthdir_y(argument[2],argument[4]),
+    argument[5],1
+  );
+}
+draw_primitive_end();
