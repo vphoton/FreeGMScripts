@@ -1,0 +1,83 @@
+///scr_obj_line(x1,y1,x2,y2,object,snapx,snapy)
+//              0  1  2  3  4      5     6
+//specify object as undefined if you want a list returned.
+//otherwise it creates objects specified in argument4.
+//list contains arrays (xy[0] -> x, xy[1] -> y)
+var dx,dy,d,slopegt1,iny,ie,ine,tmp,sx,sy;
+var dsxy, returnlist;
+returnlist=argument4!=undefined;
+if (returnlist) then dsxy=ds_list_create();
+x1=round(argument0/argument5)*argument5;
+y1=round(argument1/argument6)*argument6;
+x2=round(argument2/argument5)*argument5;
+y2=round(argument3/argument6)*argument6;
+sx=argument5;
+sy=argument6;
+slopegt1=0;
+dx=abs(x2-x1);
+dy=abs(y2-y1);
+//NE to NW and SW to SE (dy>dx)
+//but take into account new slope
+//for when snaps are different
+var tpdir=point_direction(x1,y1,x2,y2)
+if (tpdir>=45 and tpdir=dx/sx){
+  //mirror diagonally
+  tmp=x1;//swap x1 with y1
+  x1=y1;
+  y1=tmp;
+  tmp=x2;//swap x2 with y2
+  x2=y2;
+  y2=tmp;
+  tmp=dx;//swap dx with dy
+  dx=dy;
+  dy=tmp;
+  slopegt1=1;
+  sx=argument6;
+  sy=argument5;
+}
+if (x1>x2){
+  //mirror horizontally/vertically
+  tmp=x1;//swap x1 with x2
+  x1=x2;
+  x2=tmp;
+  tmp=y1;//swap y1 with y2
+  y1=y2;
+  y2=tmp;
+}
+if (y1>y2){
+  iy=-sy;
+} else {
+  iy=sy;
+}
+d=(2*dy/sy-dx/sx);
+ie=2*dy/sy;
+ine=2*(dy/sy-dx/sx);
+while(x1<x2){
+  if(d<=0){
+    d+=ie;
+  } else {
+    d+=ine;
+    y1+=iy;
+  }
+  x1+=sx;
+  if(slopegt1){
+    if (returnlist){
+      instance_create(y1,x1,argument4);
+    } else {
+      var xy=0;
+      xy[1]=x1;
+      xy[0]=y1;
+      ds_list_add(dsxy,xy);
+    }
+  } else {
+    if (returnlist){
+    instance_create(x1,y1,argument4);
+    } else {
+      var xy=0;
+      xy[1]=y1;
+      xy[0]=x1;
+      ds_list_add(dsxy,xy);
+    }
+  }
+}
+if (returnlist) then return dsxy;
