@@ -1,0 +1,36 @@
+///scr_draw_ellipse(x,y,z,width,height,resolution,rotation,colour,filled)
+//                  0 1 2 3     4      5          6        7      8
+// can draw an ellipse with rotation
+var ldx=lengthdir_x(argument[2],zmd);
+var ldy=lengthdir_y(argument[2],zmd);
+ 
+var i=0;
+draw_primitive_begin(pr_trianglefan);
+if argument[8] == true{
+  draw_vertex_colour(argument[0],argument[1],argument[7],1);
+}
+for(i=0;i<=argument[5];i++)
+{
+  var sx=sin(((2*pi)/argument[5])*i)*argument[3];
+  var cy=cos(((2*pi)/argument[5])*i)*argument[4];
+  var pdist=point_distance(0,0,sx,cy);
+  if argument[8] == true{
+    draw_vertex_colour(
+      argument[0]+ldx+sin(arctan2(sx,cy)+degtorad(argument[6]))*pdist,
+      argument[1]+ldy+cos(arctan2(sx,cy)+degtorad(argument[6]))*pdist,
+      argument[7],1
+    );
+  } else {
+    var sxi=sin(((2*pi)/argument[5])*(i+1))*argument[3];
+    var cyi=cos(((2*pi)/argument[5])*(i+1))*argument[4];
+    var pdisti=point_distance(0,0,sxi,cyi);
+    draw_line_colour(
+      argument[0]+ldx+sin(arctan2(sxi,cyi)+degtorad(argument[6]))*pdisti,
+      argument[1]+ldy+cos(arctan2(sxi,cyi)+degtorad(argument[6]))*pdisti,
+      argument[0]+ldx+sin(arctan2(sx,cy)+degtorad(argument[6]))*pdist,
+      argument[1]+ldy+cos(arctan2(sx,cy)+degtorad(argument[6]))*pdist,
+      argument[7],argument[7]
+    );
+  }
+}
+draw_primitive_end();
