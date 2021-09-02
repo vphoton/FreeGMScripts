@@ -1,0 +1,53 @@
+///scr_circle_intersection(circ1x,circ1y,circ2x,circ2y,radius1,radius2,intersector1or2,noIntersectReturn,overlapReturn)
+//                         0      1      2      3      4       5       6               7                 8
+//returns an array (x,y) of intersection
+ 
+pdist=point_distance(argument0,argument1,argument2,argument3)
+pdir=point_direction(argument0,argument1,argument2,argument3)
+var intersections;
+var overlap;
+var noInt;
+//overlap return
+if (argument0==argument2 and argument1==argument3) and argument4==argument5
+{
+    if argument8==0
+    {
+        overlap[0]=argument0+lengthdir_x(pdist,pdir)//argument8;
+        overlap[1]=argument1+lengthdir_y(pdist,pdir)//argument8;
+        return overlap;
+    }
+}
+//no intersection
+if point_distance(argument0,argument1,argument2,argument3)>(argument4+argument5)
+{
+    if argument7==0
+    {
+        noInt[0]=argument0+lengthdir_x(pdist/2,pdir)//argument7;
+        noInt[1]=argument1+lengthdir_y(pdist/2,pdir)//argument7;
+        return noInt;
+    }
+}
+ 
+//circle intersection calculations
+var a=(sqr(argument4)-sqr(argument5)+sqr(pdist))/(pdist*2);
+if (sqr(argument4)-sqr(a))>0
+then var h=sqrt(sqr(argument4)-sqr(a))
+else var h=0;
+var p2x=argument0+a*(argument2-argument0)/pdist;//lengthdir_x(a,pdir);
+var p2y=argument1+a*(argument3-argument1)/pdist;//lengthdir_y(a,pdir);
+var p3x=p2x+h*(argument3-argument1)/pdist;
+var p3y=p2y-h*(argument2-argument0)/pdist;
+var p4x=p2x-h*(argument3-argument1)/pdist;
+var p4y=p2y+h*(argument2-argument0)/pdist;
+if argument6==2 //return intersection 1
+{
+    intersections[0]=p3x;
+    intersections[1]=p3y;
+    return intersections;
+}
+if argument6==1 //return intersection 2
+{
+    intersections[0]=p4x;
+    intersections[1]=p4y;
+    return intersections;
+}
