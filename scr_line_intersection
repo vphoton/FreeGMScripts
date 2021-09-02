@@ -1,0 +1,65 @@
+///scr_line_intersection(Ax,Ay,Bx,By,Cx,Cy,Dx,Dy)
+A1 = argument3-argument1
+B1 = argument0-argument2
+C1 = (A1*argument0)+(B1*argument1)
+A2 = argument7-argument5
+B2 = argument4-argument6
+C2 = (A2*argument4)+(B2*argument5)
+
+delta = (A1*B2)-(A2*B1)
+
+interay[0] = ((B2*C1)-(B1*C2))/delta
+interay[1] = ((A1*C2)-(A2*C1))/delta
+
+//calculate onsegment
+
+if argument0 < argument2
+{
+    x1least = argument0
+    x1most = argument2
+}
+else
+{
+    x1least = argument2
+    x1most = argument0
+}
+if argument1 < argument3
+{
+    y1least = argument1
+    y1most = argument3
+}
+else
+{
+    y1least = argument3
+    y1most = argument1
+}
+if argument4 < argument6
+{
+    x2least = argument4
+    x2most = argument6
+}
+else
+{
+    x2least = argument6
+    x2most = argument4
+}
+if argument5 < argument7
+{
+    y2least = argument5
+    y2most = argument7
+}
+else
+{
+    y2least = argument7
+    y2most = argument5
+}
+
+if (interay[0] >= x1least) and (interay[0] <= x1most)
+    and (interay[0] >= x2least) and (interay[0] <= x2most)
+    and (interay[1] >= y1least) and (interay[1] <= y1most)
+    and (interay[1] >= y2least) and (interay[1] <= y2most)
+then onsegments = true;
+else onsegments = false;
+interay[2] = onsegments;
+interay[3] = point_direction(argument4,argument5,argument6,argument7)+90;
+return interay
