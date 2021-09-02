@@ -1,0 +1,47 @@
+///scr_sphere_sprite(sprite_index,image_index,x,y,z,direction,resx,resy,scale)
+//                   0            1           2 3 4 5         6    7    8
+//may require scr_draw_ellipse() (totally optional)
+argument6=round(argument6);
+argument7=round(argument7);
+var sgw=sprite_get_width(argument0);
+var sgh=sprite_get_height(argument0)*argument8;
+var zldx=lengthdir_x(argument4,zmd);
+var zldy=lengthdir_y(argument4,zmd);
+var topx=lengthdir_x(sgh/4,zmd);
+var topy=lengthdir_y(sgh/4,zmd);
+ 
+//draw outline
+scr_draw_ellipse(
+  argument2,argument3,argument4*viewStretch,
+  (sgw/(pi*2)+2)*argument8,
+  (sgw/(pi*2)+2)*argument8*viewStretch,
+  32,zmd+90,c_black,true
+);
+ 
+var i;
+var j;
+draw_set_colour(c_white);
+var tex = sprite_get_texture(argument0,argument1);
+ 
+for (j=argument7;j>=0;j-=1){
+  draw_primitive_begin_texture(pr_trianglestrip, tex);
+  for (i=0;i<=argument6;i++){
+    //var zsepx=lengthdir_x(,zmd+180);
+    //var multrad=sin(degtorad((360/argument7)*j)/2);
+    var radius=(sgw/(pi*2))*sin(degtorad((360/argument7)*j-j*.3)/2)*argument8;
+    var radius2=(sgw/(pi*2))*sin(degtorad((360/argument7)*(j+1)-8)/2)*argument8;
+    var dtr=degtorad(360/argument6*i);
+    var dtr2=degtorad(360/argument6*(i)+10);
+    draw_vertex_texture(
+      argument2+zldx+topx+sin(dtr)*radius+lengthdir_x((sgh*.65)/argument7*j,zmd+180)*viewStretch*.5,
+      argument3+zldy+topy+cos(dtr)*radius+lengthdir_y((sgh*.65)/argument7*j,zmd+180)*viewStretch*.5,
+      1/argument6*i+1/360*argument5,1/argument7*j
+    );
+    draw_vertex_texture(
+      argument2+zldx+topx+sin(dtr2)*radius2+lengthdir_x((sgh*.65)/argument7*(j+1),zmd+180)*viewStretch*.5,
+      argument3+zldy+topy+cos(dtr2)*radius2+lengthdir_y((sgh*.65)/argument7*(j+1),zmd+180)*viewStretch*.5,
+      1/argument6*i+1/360*argument5,1/argument7*j
+    );
+  }
+  draw_primitive_end();
+}
