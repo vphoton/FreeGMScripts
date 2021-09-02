@@ -1,0 +1,17 @@
+///scr_draw_ring(x,y,iradius,oradius,resolution,rotation,colour,alpha)
+//               0 1 2       3       4          5        6      7
+draw_primitive_begin(pr_trianglestrip);
+for(var i=0;i<=argument[4];i++)
+{
+  draw_vertex_colour(
+    argument[0]+lengthdir_x(argument[2],360/argument[4]*i+argument[5]),
+    argument[1]+lengthdir_y(argument[2],360/argument[4]*i+argument[5]),
+    argument[6],argument[7]
+  );
+  draw_vertex_colour(
+    argument[0]+lengthdir_x(argument[3],360/argument[4]*i+argument[5]),
+    argument[1]+lengthdir_y(argument[3],360/argument[4]*i+argument[5]),
+    argument[6],argument[7]
+  );
+}
+draw_primitive_end();
