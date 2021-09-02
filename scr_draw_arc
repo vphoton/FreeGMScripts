@@ -1,0 +1,20 @@
+///scr_draw_arc(x,y,radius,rot,res,deg,width,color,alpha)
+//              0 1 2      3   4   5   6     7     8
+var i, xx, yy;
+draw_primitive_begin(pr_trianglestrip);
+ 
+for(i = 0; i <= argument4; i += 1){
+  xx[i]=argument0+lengthdir_x(argument2,argument3+argument5*i/argument4)+1;
+  yy[i]=argument1+lengthdir_y(argument2,argument3+argument5*i/argument4)+1;
+  draw_vertex_colour(
+    xx[i]+lengthdir_x(argument6/2,argument3+argument5*i/argument4),
+    yy[i]+lengthdir_y(argument6/2,argument3+argument5*i/argument4),
+    argument7,argument8
+  );
+  draw_vertex_colour(
+    xx[i]-lengthdir_x(argument6/2,argument3+argument5*i/argument4),
+    yy[i]-lengthdir_y(argument6/2,argument3+argument5*i/argument4),
+    argument7,argument8
+  );
+}
+draw_primitive_end();
