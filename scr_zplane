@@ -1,0 +1,18 @@
+///scr_zplane(sprite_index, image_index, xo, yo, zo)
+var ldirx = lengthdir_x(argument4, zmd);
+var ldiry = lengthdir_y(argument4, zmd);
+var xa = x + argument2;
+var ya = y + argument3;
+var sgw = sprite_get_width(argument0)
+var sgh = sprite_get_height(argument0)
+ 
+var x1 = xa + ldirx;
+var y1 = ya + ldiry;
+var x2 = xa + sgw + ldirx;
+var y2 = ya + ldiry;
+var x3 = xa + sgw + ldirx;
+var y3 = ya + sgh + ldiry;
+var x4 = xa + ldirx;
+var y4 = ya + sgh + ldiry;
+ 
+draw_sprite_pos(argument0, argument1, x1, y1, x2, y2, x3, y3, x4, y4, 1);
