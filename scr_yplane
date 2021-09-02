@@ -1,0 +1,23 @@
+///scr_yplane(sprite_index, image_index, xo, yo, zo, ud)
+var ldirx = lengthdir_x(argument4, zmd);
+var ldiry = lengthdir_y(argument4, zmd);
+var sgw = sprite_get_width(argument0);
+var sgh = sprite_get_height(argument0);
+var ldirxsprheight = lengthdir_x(sgh, zmd);
+var ldirysprheight = lengthdir_y(sgh, zmd);
+var xa = x + argument2;
+var ya = y + argument3;
+ 
+var x1 = xa + ldirx;
+var y1 = ya + ldiry;
+var x2 = xa + ldirx + sgw;
+var y2 = ya + ldiry;
+var x3 = xa + ldirx - ldirxsprheight + sgw;
+var y3 = ya + ldiry - ldirysprheight;
+var x4 = xa + ldirx - ldirxsprheight;
+var y4 = ya + ldiry - ldirysprheight;
+ 
+if argument5 == "u" and (va >= 90 and va = 270 or va < 90)
+then draw_sprite_pos(argument0, argument1, x1, y1, x2, y2, x3, y3, x4, y4, 1);
+else if argument5 == "b"
+then draw_sprite_pos(argument0, argument1, x1, y1, x2, y2, x3, y3, x4, y4, 1);
