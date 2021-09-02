@@ -1,0 +1,40 @@
+///scr_draw_gear(x,y,teeth,iRadius,mRadius,oRadius,toothBaseDeg,toothTopDeg,rot,res,color,alpha)
+//               0 1 2     3       4       5       6            7           8   9   10    11
+//requires scr_draw_ring()
+ 
+//draw inner ring
+scr_draw_ring(
+  argument[0],argument[1],
+  argument[3],argument[4],
+  argument[9],argument[8],
+  argument[10],argument[11]
+);
+//draw teeth
+for(var i=0;i<argument[2];i++){
+  draw_primitive_begin(pr_trianglestrip);
+  draw_vertex_colour(//point 1 (middleRadius and +bottomland)
+    argument[0]+lengthdir_x(argument[4],(360/argument[2])*i+argument[6]*.5+argument[8]),
+    argument[1]+lengthdir_y(argument[4],(360/argument[2])*i+argument[6]*.5+argument[8]),
+    argument[10],
+    argument[11]
+  );
+  draw_vertex_colour(//point 2 (outerRadius and +topland)
+    argument[0]+lengthdir_x(argument[5],(360/argument[2])*i+argument[7]*.5+argument[8]),
+    argument[1]+lengthdir_y(argument[5],(360/argument[2])*i+argument[7]*.5+argument[8]),
+    argument[10],
+    argument[11]
+  );
+  draw_vertex_colour(//point 1 (middleRadius and -bottomland)
+    argument[0]+lengthdir_x(argument[4],(360/argument[2])*i-argument[6]*.5+argument[8]),
+    argument[1]+lengthdir_y(argument[4],(360/argument[2])*i-argument[6]*.5+argument[8]),
+    argument[10],
+    argument[11]
+  );
+  draw_vertex_colour(//point 2 (outerRadius and -topland)
+    argument[0]+lengthdir_x(argument[5],(360/argument[2])*i-argument[7]*.5+argument[8]),
+    argument[1]+lengthdir_y(argument[5],(360/argument[2])*i-argument[7]*.5+argument[8]),
+    argument[10],
+    argument[11]
+  );
+  draw_primitive_end();
+}
