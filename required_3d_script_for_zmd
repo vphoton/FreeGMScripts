@@ -1,0 +1,8 @@
+//throw this in a control object's create event
+globalvar va, zmd;
+ 
+//throw this in your control object's step event
+if (view_angle[0]>0)
+then va=view_angle[0] mod 360;
+else va=360+view_angle[0] mod 360;
+zmd=-va+90;
