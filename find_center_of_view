@@ -1,0 +1,6 @@
+///scr_view_center(view_index)
+//returns an array
+//keep in mind view_xview and view_yview don't change when view is rotated ㋛
+mv[0] = view_xview[argument0]+view_wview[0]/2;
+mv[1] = view_yview[argument0]+view_hview[0]/2;
+return mv;
