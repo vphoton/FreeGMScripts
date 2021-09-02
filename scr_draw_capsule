@@ -1,0 +1,21 @@
+///scr_draw_capsule(x1,y1,x2,y2,radius,width,colour,res)
+//                  0  1  2  3  4      5     6      7
+var pdir=degtorad(-point_direction(argument0,argument1,argument2,argument3)+90)
+draw_primitive_begin(pr_trianglestrip);
+for(i=0;i<=argument7+2;i++){
+    var apart=cos((i+.5)*2*pi/argument7+pdir);
+    var bpart=sin((i+.5)*2*pi/argument7+pdir);
+    var arad=apart*argument4;
+    var brad=bpart*argument4;
+    var awid=apart*argument5/2;
+    var bwid=bpart*argument5/2;
+    if(i=argument7){
+        draw_vertex_colour(argument0+arad-awid,argument1+brad-bwid,argument6,1);
+        draw_vertex_colour(argument0+arad+awid,argument1+brad+bwid,argument6,1);
+    } else {
+        draw_vertex_colour(argument2+arad-awid,argument3+brad-bwid,argument6,1);
+        draw_vertex_colour(argument2+arad+awid,argument3+brad+bwid,argument6,1);
+    }
+}
+ 
+draw_primitive_end();
