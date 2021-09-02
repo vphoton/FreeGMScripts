@@ -1,0 +1,20 @@
+///scr_circ_sprite(sprite_index,image_index,x,y,z)
+// draws a half cylinder
+// requires the zmd setting script
+var sgh=sprite_get_height(argument0);
+var sgw=sprite_get_width(argument0);
+ 
+var i;
+for (i=0;i=(360-abs(zmd+90)) and (zmd<-90))
+{
+  draw_sprite_general(
+    argument0,argument1,
+    i,0,1,sgh,
+    argument2+lengthdir_x((argument4+sgh*2)*viewStretch/2,zmd)+
+    lengthdir_x(sgw/(pi*2),360/sgw*i),
+    argument3+lengthdir_y((argument4+sgh*2)*viewStretch/2,zmd)+
+    lengthdir_y(sgw/(pi*2),360/sgw*i),
+    1,viewStretch,zmd-90,
+    c_white,c_white,c_white,c_white,1
+  );
+}
