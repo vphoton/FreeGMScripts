@@ -1,6 +1,7 @@
 ///scr_sphere_sprite(sprite_index,image_index,x,y,z,direction,resx,resy,scale)
 //                   0            1           2 3 4 5         6    7    8
 //may require scr_draw_ellipse() (totally optional)
+// you can view it's use here: https://gamejolt.com/games/apoceclipse/287590
 argument6=round(argument6);
 argument7=round(argument7);
 var sgw=sprite_get_width(argument0);
