@@ -1,0 +1,62 @@
+///scr_draw_RectWithHole_gradient(ox1,oy1,ox2,oy2,ix1,iy1,ix2,iy2,c1,c2,c3,c4)
+//                                0   1   2   3   4   5   6   7   8  9  10 11
+/*
+ox1,oy1 c1                    c2
++-----------------------------+
+|top panel  ix1,iy1           |
++-----------+-------+---------+ < ylerp1=the lerp of iy1 between oy1 and oy2
+|a  left   c| empty |e right g| merge ag colour to get c and e
+|b  panel  d| space |f panel h| merge bh colour to get d and f
++-----------+-------+---------+ < ylerp2=the lerp of iy2 between oy1 and oy2
+|bottom panel       ix2,iy2   |
++-----------------------------+ ox2,oy2 c3
+c4          ^       ^
+xlerp1  xlerp2
+*/
+var alpha=draw_get_alpha();
+//set lerps
+var xblerp=(argument[2]-argument[0]);
+var yblerp=(argument[3]-argument[1]);
+var xlerp1=(argument[4]-argument[0])/xblerp;
+var xlerp2=(argument[6]-argument[0])/xblerp;
+var ylerp1=(argument[5]-argument[1])/yblerp;
+var ylerp2=(argument[7]-argument[1])/yblerp;
+//set left panel vertex colours ab
+var a=merge_colour(argument[8],argument[11],ylerp1);
+var b=merge_colour(argument[8],argument[11],ylerp2);
+//set right panel vertex colours gh
+var g=merge_colour(argument[9],argument[10],ylerp1);
+var h=merge_colour(argument[9],argument[10],ylerp2);
+//set vertex colours near empty space by merging agbh
+var c=merge_colour(a,g,xlerp1);
+var d=merge_colour(b,h,xlerp1);
+var e=merge_colour(a,g,xlerp2);
+var f=merge_colour(b,h,xlerp2);
+//draw top panel
+draw_primitive_begin(pr_trianglestrip);
+draw_vertex_colour(argument[0],argument[1],argument[8],alpha);
+draw_vertex_colour(argument[0],argument[5],a,alpha);
+draw_vertex_colour(argument[2],argument[1],argument[9],alpha);
+draw_vertex_colour(argument[2],argument[5],g,alpha);
+draw_primitive_end();
+//draw left panel
+draw_primitive_begin(pr_trianglestrip);
+draw_vertex_colour(argument[0],argument[5],a,alpha);
+draw_vertex_colour(argument[0],argument[7],b,alpha);
+draw_vertex_colour(argument[4],argument[5],c,alpha);
+draw_vertex_colour(argument[4],argument[7],d,alpha);
+draw_primitive_end();
+//draw right panel
+draw_primitive_begin(pr_trianglestrip);
+draw_vertex_colour(argument[6],argument[5],e,alpha);
+draw_vertex_colour(argument[6],argument[7],f,alpha);
+draw_vertex_colour(argument[2],argument[5],g,alpha);
+draw_vertex_colour(argument[2],argument[7],h,alpha);
+draw_primitive_end();
+//draw bottom panel
+draw_primitive_begin(pr_trianglestrip);
+draw_vertex_colour(argument[0],argument[7],b,alpha);
+draw_vertex_colour(argument[0],argument[3],argument[11],alpha);
+draw_vertex_colour(argument[2],argument[7],h,alpha);
+draw_vertex_colour(argument[2],argument[3],argument[10],alpha);
+draw_primitive_end();
