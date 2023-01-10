@@ -1,0 +1,20 @@
+///scr_pseudoVec(x,y,z);
+
+pdir = point_direction(obj_player.x,obj_player.y,argument0,argument1);
+pdist = point_distance(obj_player.x,obj_player.y,argument0,argument1);
+var newPos;
+var zscl = pdist*(.3);//+sin(current_time*.001)*.1);
+var scl = .005;
+
+if (dcos(zscl+180)>0){
+    newPos[3] = (1.5-dcos(zscl+180))*scl*global.planetRad; // image scale behind planet
+} else {
+    newPos[3] = (dcos(zscl)+1.5)*scl*global.planetRad; // image scale
+}
+var zdist = dsin(zscl)*(global.planetRad+argument2*newPos[3]);
+newPos[0] = obj_player.x+dcos(pdir)*zdist;
+newPos[1] = obj_player.y-dsin(pdir)*zdist;
+newPos[4] = dcos(zscl+180); // depth
+newPos[5] = pdist;
+newPos[6] = pdir;
+return newPos;
